@@ -1,6 +1,38 @@
-# Formularios
+# Formularios Reactivos con Validaciones — Angular v19
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.27.
+Proyecto del taller de Reactive Forms para la asignatura de Desarrollo Web - Angular.
+
+## Descripción
+
+Formulario de registro de usuario construido con **Reactive Forms** (`FormBuilder` +
+`FormGroup`), con validaciones integradas en tiempo real y un **validador
+personalizado a nivel de grupo (cross-field)** que compara los campos de
+contraseña y confirmación de contraseña.
+
+### Funcionalidades principales
+- Formulario de registro con 7 campos: nombre completo, correo, nombre de
+  usuario, contraseña, confirmar contraseña, edad y aceptación de términos.
+- Validaciones integradas de Angular (`required`, `email`, `minLength`,
+  `pattern`, `min`, `max`, `requiredTrue`).
+- Validador de grupo reutilizable que verifica que las contraseñas coincidan.
+- Mensajes de error específicos por campo, visibles solo tras interacción
+  del usuario (`touched`/`dirty`).
+- Botón de envío deshabilitado mientras el formulario sea inválido.
+- Resumen en pantalla de los datos registrados tras un envío exitoso (sin
+  mostrar la contraseña).
+- **Opcional implementado:** mostrar/ocultar contraseña mediante un ícono
+  de ojo interactivo.
+- Formulario básico de inicio de sesión (correo + contraseña).
+
+## Requisitos previos
+- Node.js instalado
+- Angular CLI (versión 20.3.27, usada para generar este proyecto)
+
+## Instalación
+
+```bash
+npm install
+```
 
 ## Development server
 
@@ -38,7 +70,7 @@ This will compile your project and store the build artifacts in the `dist/` dire
 
 ## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To execute unit tests with the [Karma](https://karma-runner.github.io/) test runner, use the following command:
 
 ```bash
 ng test
