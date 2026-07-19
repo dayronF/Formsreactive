@@ -17,6 +17,16 @@ import {
 })
 export class Register {
   form: FormGroup;
+  registered = false;
+  personalData: {
+    name: string;
+    Email: string;
+    userName: string;
+    age: number;
+  } | null = null;
+
+  showPassword = false;
+  showPasswordValidation = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
@@ -42,22 +52,27 @@ export class Register {
 
   onClick() {
     if (this.form.valid) {
+      this.personalData = {
+        name: this.form.value.name,
+        Email: this.form.value.Email,
+        userName: this.form.value.userName,
+        age: this.form.value.age,
+      };
+      this.registered = true;
       console.log(this.form.value);
     } else {
       console.log(this.form.get('Email')!.getError('required'));
     }
   }
 
-  hasError(controlName: string, errorCode: string) {
-    const control = this.form.get(controlName)!;
-    const hasErrorCode = control.hasError(errorCode);
-    const dirty = control.dirty;
-    const touched = control.touched;
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
-    return hasErrorCode && dirty && touched;
+  togglePasswordValidation() {
+    this.showPasswordValidation = !this.showPasswordValidation;
   }
 }
-
 
 export const passwordsCoincidenValidator: ValidatorFn = (
   group: AbstractControl,
