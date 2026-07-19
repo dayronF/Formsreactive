@@ -1,7 +1,7 @@
 <div class="register-container">
     <h2>Registro de usuario</h2>
 
-    <form [formGroup]="form" (ngSubmit)="onClick()">
+    <form [formGroup]="form" (ngSubmit)="onClick()" *ngIf="!registered">
 
         <!-- Nombre completo -->
         <div class="form-field">
@@ -44,11 +44,25 @@
         </div>
 
         <!-- Contraseña -->
+
         <div class="form-field">
             <label for="password">Contraseña</label>
-            <input id="password" type="password" formControlName="password"
-                [class.is-invalid]="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)"
-                [class.is-valid]="form.get('password')?.valid && (form.get('password')?.touched || form.get('password')?.dirty)" />
+            <div class="password-wrapper">
+                <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                    [class.is-invalid]="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)"
+                    [class.is-valid]="form.get('password')?.valid && (form.get('password')?.touched || form.get('password')?.dirty)" />
+                <button type="button" class="toggle-btn" (click)="togglePassword()"
+                    [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                    <svg *ngIf="!showPassword" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                    </svg>
+                    <svg *ngIf="showPassword" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M12 6.5c5 0 9.27 3.11 11 7.5-.6 1.52-1.51 2.87-2.64 4.01l-1.42-1.42A9.956 9.956 0 0 0 20.82 14c-1.5-3.36-4.87-5.5-8.82-5.5-1.02 0-2 .14-2.93.4L7.6 7.53A11.6 11.6 0 0 1 12 6.5zM2.71 3.16 1.29 4.58 4.5 7.79C3.06 8.9 1.87 10.32 1 12c1.73 4.39 6 7.5 11 7.5 1.75 0 3.4-.39 4.87-1.08l2.85 2.85 1.41-1.41L2.71 3.16zM12 17c-2.76 0-5-2.24-5-5 0-.77.18-1.5.49-2.15l1.57 1.57c-.04.19-.06.38-.06.58 0 1.66 1.34 3 3 3 .2 0 .39-.02.58-.06l1.57 1.57c-.65.31-1.38.49-2.15.49zm2.97-5.33-3.64-3.64c.21-.02.43-.03.67-.03 1.66 0 3 1.34 3 3 0 .24-.01.46-.03.67z" />
+                    </svg>
+                </button>
+            </div>
             <div class="error-msg"
                 *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
                 <span *ngIf="form.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
@@ -61,14 +75,27 @@
         <!-- Confirmar contraseña -->
         <div class="form-field">
             <label for="passwordValidation">Confirmar contraseña</label>
-            <input id="passwordValidation" type="password" formControlName="passwordValidation"
-                [class.is-invalid]="form.get('passwordValidation')?.invalid && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)"
-                [class.is-valid]="form.get('passwordValidation')?.valid && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)" />
+            <div class="password-wrapper">
+                <input id="passwordValidation" [type]="showPasswordValidation ? 'text' : 'password'"
+                    formControlName="passwordValidation"
+                    [class.is-invalid]="form.get('passwordValidation')?.invalid && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)"
+                    [class.is-valid]="form.get('passwordValidation')?.valid && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)" />
+                <button type="button" class="toggle-btn" (click)="togglePasswordValidation()"
+                    [attr.aria-label]="showPasswordValidation ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                    <svg *ngIf="!showPasswordValidation" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                    </svg>
+                    <svg *ngIf="showPasswordValidation" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M12 6.5c5 0 9.27 3.11 11 7.5-.6 1.52-1.51 2.87-2.64 4.01l-1.42-1.42A9.956 9.956 0 0 0 20.82 14c-1.5-3.36-4.87-5.5-8.82-5.5-1.02 0-2 .14-2.93.4L7.6 7.53A11.6 11.6 0 0 1 12 6.5zM2.71 3.16 1.29 4.58 4.5 7.79C3.06 8.9 1.87 10.32 1 12c1.73 4.39 6 7.5 11 7.5 1.75 0 3.4-.39 4.87-1.08l2.85 2.85 1.41-1.41L2.71 3.16zM12 17c-2.76 0-5-2.24-5-5 0-.77.18-1.5.49-2.15l1.57 1.57c-.04.19-.06.38-.06.58 0 1.66 1.34 3 3 3 .2 0 .39-.02.58-.06l1.57 1.57c-.65.31-1.38.49-2.15.49zm2.97-5.33-3.64-3.64c.21-.02.43-.03.67-.03 1.66 0 3 1.34 3 3 0 .24-.01.46-.03.67z" />
+                    </svg>
+                </button>
+            </div>
             <div class="error-msg"
                 *ngIf="form.get('passwordValidation')?.invalid && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)">
                 <span *ngIf="form.get('passwordValidation')?.errors?.['required']">Debes confirmar la contraseña.</span>
             </div>
-            <!-- Error de grupo (cross-field) -->
             <div class="error-msg"
                 *ngIf="form.errors?.['passwordsNoCoinciden'] && (form.get('passwordValidation')?.touched || form.get('passwordValidation')?.dirty)">
                 <span>Las contraseñas no coinciden.</span>
@@ -106,15 +133,15 @@
             Registrarse
         </button>
 
-
     </form>
 
-    <div class="login-redirect">
-        <p>¿Ya tienes una cuenta?</p>
-        <button type="button" class="btn-login" routerLink="/Login">
-            Iniciar sesión
-        </button>
+    <!-- Resumen tras registro exitoso -->
+    <div class="resumen" *ngIf="registered">
+        <h3>¡Registro exitoso!</h3>
+        <p><strong>Nombre completo:</strong> {{ personalData?.name }}</p>
+        <p><strong>Correo:</strong> {{ personalData?.Email }}</p>
+        <p><strong>Usuario:</strong> {{ personalData?.userName }}</p>
+        <p><strong>Edad:</strong> {{ personalData?.age }}</p>
     </div>
-
 
 </div>

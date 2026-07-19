@@ -1,1 +1,37 @@
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum unde quia et est rerum dolor sed animi consequatur cupiditate! Molestiae soluta sit velit aut voluptatibus enim incidunt molestias neque quis.</p>
+<div class="login-container">
+  <h2>Iniciar sesión</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onClick()">
+
+    <div class="form-field">
+      <label for="loginEmail">Correo electrónico</label>
+      <input id="loginEmail" type="email" formControlName="Email"
+        [class.is-invalid]="form.get('Email')?.invalid && (form.get('Email')?.touched || form.get('Email')?.dirty)"
+        [class.is-valid]="form.get('Email')?.valid && (form.get('Email')?.touched || form.get('Email')?.dirty)" />
+      <div class="error-msg"
+        *ngIf="form.get('Email')?.invalid && (form.get('Email')?.touched || form.get('Email')?.dirty)">
+        <span *ngIf="form.get('Email')?.errors?.['required']">El correo es obligatorio.</span>
+        <span *ngIf="form.get('Email')?.errors?.['email']">Ingresa un correo válido.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="loginPassword">Contraseña</label>
+      
+      <input id="loginPassword" type="password" formControlName="password"
+        [class.is-invalid]="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)"
+        [class.is-valid]="form.get('password')?.valid && (form.get('password')?.touched || form.get('password')?.dirty)" />
+
+      <div class="error-msg"
+        *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
+
+        <span *ngIf="form.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">
+      Iniciar sesión
+    </button>
+
+  </form>
+</div>
